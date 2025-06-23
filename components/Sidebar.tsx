@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Home,
   Calendar,
@@ -11,8 +11,6 @@ import {
   Settings,
   HelpCircle,
   User,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import clsx from "clsx";
 
@@ -43,78 +41,88 @@ export default function Sidebar({
   return (
     <div
       className={clsx(
-        "fixed left-0 top-20 h-[calc(100vh-80px)] bg-gray-50 transition-all duration-300 ease-in-out z-50 flex flex-col",
-        collapsed ? "w-16" : "w-70",
+        "fixed left-0 top-20 h-[calc(100vh-80px)] bg-[#f7f9fa] transition-all duration-300 ease-in-out z-50 flex flex-col",
+        collapsed ? "w-20" : "w-[280px]",
       )}
     >
-      {/* Toggle Button */}
-      <button
-        onClick={onToggleCollapse}
-        className="absolute -right-3 top-6 bg-white border border-gray-200 rounded-full p-1 shadow-sm hover:shadow-md transition-shadow"
-      >
-        {collapsed ? (
-          <ChevronRight className="w-4 h-4 text-gray-600" />
-        ) : (
-          <ChevronLeft className="w-4 h-4 text-gray-600" />
-        )}
-      </button>
-
       {/* Navigation Items */}
-      <div className="flex-1 px-5 py-6">
-        <nav className="space-y-3">
-          {sidebarItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeItem === item.id;
+      <div className="flex-1 pt-5 px-0">
+        <div className="flex flex-col justify-between items-center flex-1 self-stretch">
+          {/* Main Navigation */}
+          <div className="flex flex-col items-center gap-3 self-stretch">
+            <div className="flex flex-col items-center gap-8 self-stretch">
+              <div className="flex px-[18px] flex-col items-center gap-6 self-stretch">
+                {sidebarItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = activeItem === item.id;
 
-            return (
-              <button
-                key={item.id}
-                onClick={() => onItemClick(item.id)}
-                className={clsx(
-                  "w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200",
-                  isActive
-                    ? "bg-primary-500 text-white"
-                    : "text-gray-600 hover:bg-gray-100",
-                  collapsed && "px-3 justify-center",
-                )}
-                title={collapsed ? item.label : undefined}
-              >
-                <Icon
-                  className={clsx(
-                    "flex-shrink-0",
-                    collapsed ? "w-5 h-5" : "w-6 h-6",
-                  )}
-                />
-                {!collapsed && (
-                  <span className="text-sm font-medium">{item.label}</span>
-                )}
-              </button>
-            );
-          })}
-        </nav>
-      </div>
-
-      {/* User Profile Section */}
-      <div
-        className={clsx("border-t border-gray-200 p-5", collapsed && "px-3")}
-      >
-        <div
-          className={clsx(
-            "flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-200",
-            collapsed && "justify-center p-2",
-          )}
-        >
-          <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
-            <User className="w-6 h-6 text-primary-500" />
-          </div>
-          {!collapsed && (
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-primary-600 truncate">
-                Johnathon Doe
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        onItemClick(item.id);
+                        // Toggle collapse when clicking dashboard
+                        if (item.id === "dashboard") {
+                          onToggleCollapse();
+                        }
+                      }}
+                      className={clsx(
+                        "flex w-[244px] px-[18px] py-3 items-center gap-[100px] rounded-xl cursor-pointer transition-colors",
+                        isActive
+                          ? "bg-[#006b5f] text-white"
+                          : "text-[#666] hover:bg-gray-100",
+                        collapsed && "w-12 px-3 justify-center",
+                      )}
+                    >
+                      <div className="flex items-center gap-[18px]">
+                        <div className="w-6 h-6 relative">
+                          <Icon className="w-4 h-4 absolute left-1 top-1" />
+                        </div>
+                        {!collapsed && (
+                          <div className="text-sm font-normal leading-[150%]">
+                            {item.label}
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
-              <div className="text-xs text-gray-500 truncate">Back-office</div>
             </div>
-          )}
+          </div>
+
+          {/* Bottom User Profile */}
+          <div className="flex flex-col justify-end items-center gap-3 self-stretch">
+            <div
+              className={clsx(
+                "flex px-3 pt-5 pb-5 pl-9 flex-col items-center gap-4 self-stretch border-t border-[#ebeff2]",
+                collapsed && "px-3 pl-3",
+              )}
+            >
+              <div className="flex w-[238px] justify-between items-center">
+                <div className="flex items-center gap-3">
+                  <div className="flex w-12 h-12 justify-center items-center rounded-lg bg-[#ebeff2]">
+                    <div className="flex p-3 justify-center items-center gap-[18px] flex-1 self-stretch rounded-lg">
+                      <div className="flex w-6 h-6 px-[3px] py-[3px] justify-center items-center">
+                        <User className="w-4 h-[18px] text-[#006b5f]" />
+                      </div>
+                    </div>
+                  </div>
+                  {!collapsed && (
+                    <div className="flex flex-col items-start gap-0.5">
+                      <div className="text-sm font-normal leading-[150%] text-[#006b5f]">
+                        Johnathon Doe
+                      </div>
+                      <div className="text-xs font-normal leading-[135%] text-[#999]">
+                        Back-office
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {!collapsed && <div className="w-6 h-6 flex-shrink-0"></div>}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

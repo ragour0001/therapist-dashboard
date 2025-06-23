@@ -98,34 +98,65 @@ export default function Dashboard({ userId }: DashboardProps) {
       {/* Main Content */}
       <main
         className={clsx(
-          "pt-20 transition-all duration-300 min-h-screen",
-          sidebarCollapsed ? "pl-16" : "pl-70",
+          "absolute transition-all duration-300",
+          sidebarCollapsed ? "left-20" : "left-[296px]",
+          "top-[100px] w-[1109px] flex-col items-start gap-7.5 h-[1909px]",
         )}
       >
-        <div className="p-8">
-          {/* Dynamic Grid Layout */}
-          <div className="grid grid-cols-2 gap-8 auto-rows-min">
-            {config.map((componentConfig) => (
-              <DynamicRenderer
-                key={componentConfig.id}
-                config={componentConfig}
-                className="min-h-fit"
+        <div className="flex items-start gap-7.5 self-stretch">
+          <div className="flex w-[658px] flex-col items-start gap-7.5">
+            {/* Sessions Today */}
+            <DynamicRenderer
+              config={{
+                id: "sessions-today",
+                type: "sessions-today",
+                position: { row: 1, column: 1 },
+                visible: true,
+              }}
+            />
+            {/* Upcoming Sessions */}
+            <div className="w-[658px] h-[600px]">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ae9151802f38222c216acd9a1edcd9a0278f779a?placeholderIfAbsent=true"
+                alt="Upcoming Appointments"
+                className="flex flex-col items-start gap-4 self-stretch rounded-xl"
               />
-            ))}
+            </div>
           </div>
 
-          {/* Bottom Messages Section */}
-          <div className="fixed bottom-6 right-6 z-50">
-            <div className="bg-white rounded-full p-3 shadow-lg border border-gray-200 cursor-pointer hover:shadow-xl transition-shadow">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                <span className="text-sm font-medium text-gray-700">
-                  1 Messages
-                </span>
-                <div className="flex -space-x-2 ml-2">
-                  <div className="w-6 h-6 bg-blue-500 rounded-full border-2 border-white"></div>
-                  <div className="w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
-                </div>
+          <div className="flex flex-col items-end gap-[23px] flex-1">
+            {/* Calendar */}
+            <DynamicRenderer
+              config={{
+                id: "calendar",
+                type: "calendar",
+                position: { row: 1, column: 2 },
+                visible: true,
+              }}
+            />
+            {/* Todo List */}
+            <DynamicRenderer
+              config={{
+                id: "todo-list",
+                type: "todo-list",
+                position: { row: 2, column: 2 },
+                visible: true,
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Bottom Messages Section */}
+        <div className="fixed bottom-6 right-6 z-50">
+          <div className="bg-white rounded-full p-3 shadow-lg border border-gray-200 cursor-pointer hover:shadow-xl transition-shadow">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span className="text-sm font-medium text-gray-700">
+                1 Messages
+              </span>
+              <div className="flex -space-x-2 ml-2">
+                <div className="w-6 h-6 bg-blue-500 rounded-full border-2 border-white"></div>
+                <div className="w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
               </div>
             </div>
           </div>

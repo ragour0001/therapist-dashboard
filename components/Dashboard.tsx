@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import DynamicRenderer, { usePersonalizedDashboard } from "./DynamicRenderer";
+import SessionsToday from "./SessionsToday";
+import CalendarWidget from "./CalendarWidget";
+import TodoList from "./TodoList";
+import NextSession from "./NextSession";
+import UpcomingSessions from "./UpcomingSessions";
 
 interface DashboardProps {
   userId: string;
@@ -107,6 +111,8 @@ export default function Dashboard({ userId }: DashboardProps) {
           <div className="flex w-[658px] flex-col items-start gap-7.5">
             {/* Sessions Today */}
             <SessionsToday />
+            {/* Next Session */}
+            <NextSession />
             {/* Upcoming Sessions */}
             <UpcomingSessions />
           </div>

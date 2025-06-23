@@ -10,16 +10,9 @@ import TodoList from "./TodoList";
 import NextSession from "./NextSession";
 import UpcomingSessions from "./UpcomingSessions";
 
-interface DashboardProps {
-  userId: string;
-}
-
-export default function Dashboard({ userId }: DashboardProps) {
+export default function Dashboard() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState("dashboard");
-
-  // Get personalized dashboard configuration
-  const { config, loading, error } = usePersonalizedDashboard(userId);
 
   const handleSidebarToggle = () => {
     setSidebarCollapsed(!sidebarCollapsed);

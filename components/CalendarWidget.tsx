@@ -147,7 +147,13 @@ export default function CalendarWidget() {
         {/* Calendar Days */}
         {calendarDays.map((day) => (
           <div key={day.date} className="relative">
-            <button className="w-11 h-11 rounded-full flex items-center justify-center text-base font-medium text-gray-900 hover:bg-gray-100 relative">
+            <button
+              className={`w-11 h-11 rounded-full flex items-center justify-center text-base font-medium relative ${
+                day.date === 23
+                  ? "bg-[rgba(0,107,95,0.10)] text-[#006b5f] font-semibold"
+                  : "text-[rgba(26,26,26,0.61)] hover:bg-gray-100"
+              }`}
+            >
               {day.date}
               {day.events.length > 0 && renderEventDots(day.events)}
             </button>
@@ -172,20 +178,41 @@ export default function CalendarWidget() {
       </div>
 
       {/* Selected Date Events */}
-      <div className="space-y-4">
-        <h4 className="text-xl font-semibold text-gray-900">{selectedDate}</h4>
+      <div className="flex flex-col items-start gap-4">
+        <h4 className="w-[365px] text-[#1a1a1a] font-inter text-xl font-semibold leading-[150%]">
+          Wed Apr 23,2024
+        </h4>
 
-        <div className="space-y-2">
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className="flex justify-between items-center py-2 px-1.5 rounded-lg"
-            >
-              <span className="text-base text-gray-900">{event.title}</span>
-              <span className="text-base text-gray-900">{event.time}</span>
+        <div className="flex flex-col items-start gap-[14px]">
+          <div className="flex w-[365px] flex-col items-start gap-2.5">
+            <div className="flex px-[7px] py-[6px] justify-between items-center self-stretch rounded-[9px] border border-[#2dd4bf] bg-[rgba(45,212,191,0.10)]">
+              <div className="text-[#1a1a1a] font-inter text-base font-normal leading-[150%]">
+                session with Olivia
+              </div>
+              <div className="text-[#2dd4bf] font-inter text-base font-normal leading-[150%]">
+                12:00 pm
+              </div>
             </div>
-          ))}
-          <div className="text-gray-500 text-sm font-medium">2 more....</div>
+            <div className="flex px-[7px] py-[6px] justify-between items-center self-stretch rounded-[9px] border border-[#3b82f6] bg-[rgba(59,130,246,0.10)]">
+              <div className="text-[#1a1a1a] font-inter text-base font-normal leading-[150%]">
+                slot available
+              </div>
+              <div className="text-[#3b82f6] font-inter text-base font-normal leading-[150%]">
+                1:00 pm
+              </div>
+            </div>
+            <div className="flex px-[7px] py-[6px] justify-between items-center self-stretch rounded-[9px] border border-[#2dd4bf] bg-[rgba(45,212,191,0.10)]">
+              <div className="text-[#1a1a1a] font-inter text-base font-normal leading-[150%]">
+                session with Olivia
+              </div>
+              <div className="text-[#2dd4bf] font-inter text-base font-normal leading-[150%]">
+                12:00 pm
+              </div>
+            </div>
+          </div>
+          <div className="w-[365px] text-[#888] font-inter text-[15px] font-medium leading-[150%]">
+            2 more....
+          </div>
         </div>
       </div>
     </div>
